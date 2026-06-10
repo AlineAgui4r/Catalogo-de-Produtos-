@@ -1,0 +1,143 @@
+@{
+    ViewData["Title"] = "Catálogo de Produtos";
+    var produtos = ViewBag.Produtos as List<string> ?? new List<string>();
+    var precos = ViewBag.Precos as List<double> ?? new List<double>();
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 20px;
+        }
+
+        .catalogo-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 700px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            color: #1a1a2e;
+            margin: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead tr {
+            background: linear-gradient(90deg, #1a1a2e, #0f3460);
+            color: white;
+        }
+
+        thead th {
+            padding: 14px 18px;
+            text-align: left;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+        }
+
+        tbody tr:hover {
+            background: #f8f9ff;
+        }
+
+        td {
+            padding: 14px 18px;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .preco-barato {
+            color: #155724;
+            background: #d4edda;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .preco-normal {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .footer-total {
+            margin-top: 25px;
+            padding: 20px;
+            background: linear-gradient(90deg, #1a1a2e, #0f3460);
+            border-radius: 12px;
+            color: white;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="catalogo-card">
+
+        <div class="header">
+            <h1>🛍️ Catálogo de Produtos</h1>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                @for (int i = 0; i < produtos.Count; i++)
+                {
+                    <tr>
+                        <td>@(i + 1)</td>
+                        <td>@produtos[i]</td>
+
+                        <td>
+                            @if (precos[i] < 100)
+                            {
+                                <span class="preco-barato">R$ @precos[i].ToString("F2")</span>
+                            }
+                            else
+                            {
+                                <span class="preco-normal">R$ @precos[i].ToString("F2")</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="footer-total">
+            Total: @produtos.Count produtos
+        </div>
+
+    </div>
+</body>
+</html>
+}
